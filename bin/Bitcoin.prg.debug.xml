@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+<pcToLineNum>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="9" pc="268435456" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="10" pc="268435460" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="14" pc="268435479" symbol="onLayout"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="15" pc="268435483" symbol="onLayout"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="16" pc="268435495" symbol="onLayout"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="23" pc="268435533" symbol="onShow"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="24" pc="268435537" symbol="onShow"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="25" pc="268435563" symbol="onShow"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="35" pc="268435710" symbol="onUpdate"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="37" pc="268435714" symbol="onUpdate"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="38" pc="268435734" symbol="onUpdate"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="44" pc="268435755" symbol="onHide"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="47" pc="268435760" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="48" pc="268435764" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="49" pc="268435784" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="52" pc="268435811" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="53" pc="268435824" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="54" pc="268435837" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="55" pc="268435861" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="58" pc="268435948" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="61" pc="268435965" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="62" pc="268435969" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="63" pc="268435976" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="64" pc="268435984" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="69" pc="268436059" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="70" pc="268436077" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="73" pc="268436116" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="74" pc="268436120" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="75" pc="268436140" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="76" pc="268436151" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="77" pc="268436174" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="78" pc="268436212" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinView.mc" lineNum="80" pc="268436231" symbol="onReceeive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="7" pc="268436258" symbol="onTap"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="8" pc="268436262" symbol="onTap"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="9" pc="268436274" symbol="onTap"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="12" pc="268436278" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="13" pc="268436282" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="15" pc="268436305" symbol="makeRequest"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="25" pc="268436370" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="26" pc="268436374" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="27" pc="268436396" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="30" pc="268436407" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="31" pc="268436411" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinDelegate.mc" lineNum="32" pc="268436422" symbol="onReceive"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinApp.mc" lineNum="7" pc="268436452" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinApp.mc" lineNum="8" pc="268436456" symbol="initialize"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinApp.mc" lineNum="12" pc="268436475" symbol="onStart"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinApp.mc" lineNum="16" pc="268436480" symbol="onStop"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinApp.mc" lineNum="20" pc="268436485" symbol="getInitialView"/>
+<entry filename="C:\\Users\\Peter\\eclipse-workspace\\Bitcoin\\source\\BitcoinApp.mc" lineNum="23" pc="268436489" symbol="getInitialView"/>
+<entry filename="Rez" lineNum="18" pc="268436527" symbol="MainLayout"/>
+</pcToLineNum>
+<symbolTable>
+<entry id="8389124" method="true" symbol="onUpdate"/>
+<entry field="true" id="8388611" module="true" symbol="Toybox"/>
+<entry id="8388770" module="true" object="true" symbol="Strings"/>
+<entry id="8389280" method="true" symbol="getInitialView"/>
+<entry id="21" method="true" symbol="MainLayout"/>
+<entry id="8388769" module="true" object="true" symbol="Rez"/>
+<entry id="8389123" method="true" symbol="onShow"/>
+<entry id="8389098" method="true" symbol="onTap"/>
+<entry id="8388702" method="true" symbol="initialize"/>
+<entry field="true" id="22" symbol="AppName"/>
+<entry id="13" method="true" symbol="makeRequest"/>
+<entry id="8389594" symbol="headers"/>
+<entry id="17" method="true" symbol="onReceeive"/>
+<entry field="true" id="15" symbol="bitCoinView"/>
+<entry id="11" object="true" symbol="BitcoinApp"/>
+<entry field="true" id="20" symbol="LauncherIcon"/>
+<entry id="8388786" method="true" symbol="method"/>
+<entry id="8389281" method="true" symbol="onStop"/>
+<entry field="true" id="8389065" symbol="locY"/>
+<entry field="true" id="8389064" symbol="locX"/>
+<entry id="8388771" module="true" object="true" symbol="Drawables"/>
+<entry id="8389122" method="true" symbol="onLayout"/>
+<entry id="8389279" method="true" symbol="onStart"/>
+<entry field="true" id="12" symbol="notify"/>
+<entry id="8389348" symbol="font"/>
+<entry id="8389347" symbol="color"/>
+<entry id="19" module="true" symbol="Layouts"/>
+<entry field="true" id="16" symbol="bitCoinPrice"/>
+<entry id="9" object="true" symbol="BitcoinView"/>
+<entry id="8389125" method="true" symbol="onHide"/>
+<entry id="8390088" module="true" object="true" symbol="JsonData"/>
+<entry id="8389844" symbol="responseType"/>
+<entry id="8389346" symbol="text"/>
+<entry id="10" object="true" symbol="BitcoinDelegate"/>
+<entry id="18" module="true" symbol="Menus"/>
+<entry id="14" method="true" symbol="onReceive"/>
+<entry id="8388772" module="true" object="true" symbol="Fonts"/>
+<entry field="true" id="23" symbol="mView"/>
+</symbolTable>
+<localVars>
+<entry endPc="268435533" name="dc" stackId="1" startPc="268435479"/>
+<entry endPc="268435755" name="dc" stackId="1" startPc="268435710"/>
+<entry endPc="268435945" name="i" stackId="3" startPc="268435861"/>
+<entry endPc="268435945" name="keys" stackId="2" startPc="268435811"/>
+<entry endPc="268435965" name="args" stackId="1" startPc="268435760"/>
+<entry endPc="268436115" name="options" stackId="3" startPc="268435969"/>
+<entry endPc="268436115" name="url" stackId="1" startPc="268435969"/>
+<entry endPc="268436115" name="responseCallback" stackId="4" startPc="268435969"/>
+<entry endPc="268436115" name="params" stackId="2" startPc="268435969"/>
+<entry endPc="268436258" name="responseCode" stackId="1" startPc="268436116"/>
+<entry endPc="268436258" name="data" stackId="2" startPc="268436116"/>
+<entry endPc="268436407" name="handler" stackId="1" startPc="268436370"/>
+<entry endPc="268436452" name="responseCode" stackId="1" startPc="268436407"/>
+<entry endPc="268436452" name="data" stackId="2" startPc="268436407"/>
+<entry endPc="268436480" name="state" stackId="1" startPc="268436475"/>
+<entry endPc="268436485" name="state" stackId="1" startPc="268436480"/>
+<entry endPc="268436540" name="dc" stackId="1" startPc="268436527"/>
+</localVars>
+<annotations/>
+<functions>
+<functionEntry accessMode="public" name="initialize" parent="BitcoinView">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onLayout" parent="BitcoinView">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onShow" parent="BitcoinView">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onUpdate" parent="BitcoinView">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onHide" parent="BitcoinView">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onReceive" parent="BitcoinView">
+<param id="args"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="makeRequest" parent="BitcoinView">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onReceeive" parent="BitcoinView">
+<param id="responseCode"/>
+<param id="data"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onTap" parent="BitcoinDelegate">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="makeRequest" parent="BitcoinDelegate">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="initialize" parent="BitcoinDelegate">
+<param id="handler"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onReceive" parent="BitcoinDelegate">
+<param id="responseCode"/>
+<param id="data"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="initialize" parent="BitcoinApp">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onStart" parent="BitcoinApp">
+<param id="state"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onStop" parent="BitcoinApp">
+<param id="state"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="getInitialView" parent="BitcoinApp">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="MainLayout" parent="Layouts">
+<param id="dc"/>
+<documentation><![CDATA[<div class="description"> Draw the layout<br/> param The context<br/></div>]]></documentation>
+</functionEntry>
+</functions>
+<dataEntryOffsetMappings>
+<dataEntry offset="87" parentId="" symbolId="globals" type="module"/>
+<dataEntry offset="182" parentId="globals" symbolId="BitcoinDelegate" type="class"/>
+<dataEntry offset="261" parentId="globals" symbolId="BitcoinView" type="class"/>
+<dataEntry offset="380" parentId="globals" symbolId="Rez" type="module"/>
+<dataEntry offset="459" parentId="Rez" symbolId="Drawables" type="module"/>
+<dataEntry offset="498" parentId="Rez" symbolId="Menus" type="module"/>
+<dataEntry offset="529" parentId="Rez" symbolId="Fonts" type="module"/>
+<dataEntry offset="560" parentId="Rez" symbolId="JsonData" type="module"/>
+<dataEntry offset="591" parentId="Rez" symbolId="Layouts" type="module"/>
+<dataEntry offset="630" parentId="Rez" symbolId="Strings" type="module"/>
+<dataEntry offset="669" parentId="globals" symbolId="BitcoinApp" type="class"/>
+</dataEntryOffsetMappings>
+</debugInfo>
