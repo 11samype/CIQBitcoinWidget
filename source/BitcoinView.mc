@@ -14,27 +14,28 @@ class BitcoinView extends Ui.View {
     function onLayout(dc) {
     	makeRequest();
         setLayout(Rez.Layouts.MainLayout(dc));
-        
+     
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-    System.println(bitCoinPrice);
-    	bitCoinView = new WatchUi.Text({
+    	makeRequest();
+    }
+
+    // Update the view
+    function onUpdate(dc) {
+        // Call the parent onUpdate function to redraw the layout
+        System.println("Price: " + bitCoinPrice);
+        View.onUpdate(dc);
+        bitCoinView = new WatchUi.Text({
     		:text => bitCoinPrice,
     		:color => Graphics.COLOR_WHITE,
     		:font => Graphics.FONT_LARGE,
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
     		:locY => WatchUi.LAYOUT_VALIGN_CENTER
     	});
-    }
-
-    // Update the view
-    function onUpdate(dc) {
-        // Call the parent onUpdate function to redraw the layout
-        View.onUpdate(dc);
         bitCoinView.draw(dc);
     }
 
@@ -44,20 +45,18 @@ class BitcoinView extends Ui.View {
     function onHide() {
     }
     
-    function onReceive(args) {
-    	if (args instanceof Lang.String) {
-    		mMessage = args;
-    	}
-    	else if (args instanceof Dictionary) {
-    		var keys = args.keys();
-    		mMessage = "";
-    		for (var i = 0; i < keys.size(); i++) {
-    			mMessage += Lang.format("$1$: $2$\n", [keys[i], args[keys[i]]]);
-    		}
-    	}
-    	Ui.requestUpdate();
+    function renderPrice(dc) {
+    	bitCoinView = new WatchUi.Text({
+    		:text => bitCoinPrice,
+    		:color => Graphics.COLOR_WHITE,
+    		:font => Graphics.FONT_LARGE,
+    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
+    		:locY => WatchUi.LAYOUT_VALIGN_CENTER
+    	});
+        bitCoinView.draw(dc);
     }
     
+   
     function makeRequest() {
     	var url = "https://api.coinbase.com/v2/prices/spot?currency=USD";
     	var params = {};
