@@ -4,7 +4,7 @@ using Toybox.Communications as Comm;
 class BitcoinView extends Ui.View {
 
 	var bitCoinView;
-	var bitCoinPrice = "12345.25";
+	var bitCoinPrice = "Loading...";
 
     function initialize() {
         View.initialize();
@@ -12,9 +12,14 @@ class BitcoinView extends Ui.View {
 
     // Load your resources here
     function onLayout(dc) {
-    	makeRequest();
+    	bitCoinView = new WatchUi.Text({
+    		:text => bitCoinPrice,
+    		:color => Graphics.COLOR_WHITE,
+    		:font => Graphics.FONT_LARGE,
+    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
+    		:locY => WatchUi.LAYOUT_VALIGN_CENTER
+    	});
         setLayout(Rez.Layouts.MainLayout(dc));
-     
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -29,13 +34,7 @@ class BitcoinView extends Ui.View {
         // Call the parent onUpdate function to redraw the layout
         System.println("Price: " + bitCoinPrice);
         View.onUpdate(dc);
-        bitCoinView = new WatchUi.Text({
-    		:text => bitCoinPrice,
-    		:color => Graphics.COLOR_WHITE,
-    		:font => Graphics.FONT_LARGE,
-    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
-    		:locY => WatchUi.LAYOUT_VALIGN_CENTER
-    	});
+		bitCoinView.setText(bitCoinPrice);
         bitCoinView.draw(dc);
     }
 
@@ -44,42 +43,28 @@ class BitcoinView extends Ui.View {
     // memory.
     function onHide() {
     }
-    
-    function renderPrice(dc) {
-    	bitCoinView = new WatchUi.Text({
-    		:text => bitCoinPrice,
-    		:color => Graphics.COLOR_WHITE,
-    		:font => Graphics.FONT_LARGE,
-    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
-    		:locY => WatchUi.LAYOUT_VALIGN_CENTER
-    	});
-        bitCoinView.draw(dc);
-    }
-    
    
     function makeRequest() {
-    	var url = "https://api.coinbase.com/v2/prices/spot?currency=USD";
+    	var url = "https://api.coinbase.com/v2/prices/BTC-USD/spot";
     	var params = {};
     	var options = {
     		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
-    		:headers => {"CB-VERSION" => "2017-09-08"},
+    		:headers => {},
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
-    	var responseCallback = method(:onReceeive);
-    	Comm.makeWebRequest(url, params, options, method(:onReceeive));
+    	Comm.makeWebRequest(url, params, options, method(:onReceive));
     }
     
-    function onReceeive(responseCode, data) {
+    function onReceive(responseCode, data) {
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
-    		bitCoinPrice = data.get("data").get("amount");
-    		Ui.requestUpdate();
+    		bitCoinPrice = "$ " + data.get("data").get("amount");
     	} else {
     		System.println("Response: " + responseCode);
+    		bitCoinPrice = "Load Fail";
     	}
+    	Ui.requestUpdate();
     }
     
-    
-
 }
