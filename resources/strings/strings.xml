@@ -1,3 +1,10 @@
 <strings>
     <string id="AppName">Bitcoin</string>
+    <string id="currency">Currency</string>
+    <string id="USD">USD</string>
+    <string id="EUR">EUR</string>
+    <string id="CNY">CNY</string>
+    <string id="GBP">GBP</string>
+    <string id="CAD">CAD</string>
+    <string id="ZAR">ZAR</string>
 </strings>

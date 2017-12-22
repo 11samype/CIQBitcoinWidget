@@ -4,10 +4,13 @@ using Toybox.Communications as Comm;
 class BitcoinView extends Ui.View {
 
 	var bitCoinView;
+	var currencyView;
 	var bitCoinPrice = "Loading...";
+	var currency;
 
-    function initialize() {
-        View.initialize();
+    function initialize(currencyVal) {
+    	View.initialize();
+    	currency = currencyVal;
     }
 
     // Load your resources here
@@ -19,6 +22,15 @@ class BitcoinView extends Ui.View {
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
     		:locY => WatchUi.LAYOUT_VALIGN_CENTER
     	});
+    	
+    	currencyView = new WatchUi.Text({
+    		:text => currency,
+    		:color => Graphics.COLOR_WHITE,
+    		:font => Graphics.FONT_LARGE,
+    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
+    		:locY => WatchUi.LAYOUT_VALIGN_BOTTOM
+    	});
+    	
         setLayout(Rez.Layouts.MainLayout(dc));
     }
 
@@ -35,6 +47,7 @@ class BitcoinView extends Ui.View {
         System.println("Price: " + bitCoinPrice);
         View.onUpdate(dc);
 		bitCoinView.setText(bitCoinPrice);
+		currencyView.draw(dc);
         bitCoinView.draw(dc);
     }
 
@@ -45,7 +58,8 @@ class BitcoinView extends Ui.View {
     }
    
     function makeRequest() {
-    	var url = "https://api.coinbase.com/v2/prices/BTC-USD/spot";
+    	var url = "https://api.coinbase.com/v2/prices/BTC-" + currency + "/spot";
+    	System.println(url);
     	var params = {};
     	var options = {
     		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
@@ -59,7 +73,7 @@ class BitcoinView extends Ui.View {
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
-    		bitCoinPrice = "$ " + data.get("data").get("amount");
+    		bitCoinPrice = data.get("data").get("amount");
     	} else {
     		System.println("Response: " + responseCode);
     		bitCoinPrice = "Load Fail";

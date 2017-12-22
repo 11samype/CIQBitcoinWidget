@@ -1,0 +1,13 @@
+<settings>
+	<setting propertyKey="@Properties.currency" title="@Strings.currency">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.USD</listEntry>
+			<listEntry value="1">@Strings.EUR</listEntry>
+			<listEntry value="2">@Strings.CNY</listEntry>
+			<listEntry value="3">@Strings.GBP</listEntry>
+			<listEntry value="4">@Strings.CAD</listEntry>
+			<listEntry value="5">@Strings.ZAR</listEntry>
+		</settingConfig>
+	</setting>
+
+</settings>

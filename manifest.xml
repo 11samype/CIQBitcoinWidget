@@ -2,7 +2,11 @@
     <iq:application entry="BitcoinApp" id="1f07fbe1452b4a268f411148e7b4ac1d" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="1.2.0" name="@Strings.AppName" type="widget">
         <iq:products>
             <iq:product id="vivoactive_hr"/>
+            <iq:product id="fenix5x"/>
             <iq:product id="vivoactive3"/>
+            <iq:product id="fenix5"/>
+            <iq:product id="fenix5s"/>
+            <iq:product id="fr935"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="Communications"/>

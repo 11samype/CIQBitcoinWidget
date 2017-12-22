@@ -3,9 +3,45 @@ using Toybox.Application as App;
 class BitcoinApp extends App.AppBase {
 
 	hidden var mView;
+	var currency;
 
     function initialize() {
-        AppBase.initialize();
+    
+    	AppBase.initialize();
+    
+    	var currencyNum = AppBase.getProperty("currency");
+    	
+    	System.println(currencyNum);
+    	
+		switch (currencyNum) {
+			case 0: {
+				currency = "USD";
+				break;
+			}
+			case 1: {
+				currency = "EUR";
+				break;
+			}
+			case 2: {
+				currency = "CNY";
+				break;
+			}
+			case 3: {
+				currency = "GBP";
+				break;
+			}
+			case 4: {
+				currency = "CAD";
+				break;
+			}
+			case 5: {
+				currency = "ZAR";
+				break;
+			}
+		}
+		
+		System.println(currency);
+
     }
 
     // onStart() is called on application start up
@@ -20,7 +56,7 @@ class BitcoinApp extends App.AppBase {
     function getInitialView() {
     	//mView = new BitcoinView();
         //return [ mView, new BitcoinDelegate(mView.method(:onReceive)) ];
-        return [new BitcoinView() ];
+        return [new BitcoinView(currency) ];
     }
 
 }
