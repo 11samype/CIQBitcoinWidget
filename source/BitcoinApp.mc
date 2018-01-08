@@ -38,6 +38,10 @@ class BitcoinApp extends App.AppBase {
 				currency = "ZAR";
 				break;
 			}
+			case 6: {
+				currency = "PLN";
+				break;
+			}
 		}
 		
 		System.println(currency);
