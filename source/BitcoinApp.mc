@@ -42,6 +42,10 @@ class BitcoinApp extends App.AppBase {
 				currency = "PLN";
 				break;
 			}
+			case 7: {
+				currency = "AUD";
+				break;
+			}
 		}
 		
 		System.println(currency);

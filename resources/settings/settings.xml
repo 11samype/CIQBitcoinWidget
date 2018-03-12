@@ -8,6 +8,7 @@
 			<listEntry value="4">@Strings.CAD</listEntry>
 			<listEntry value="5">@Strings.ZAR</listEntry>
 			<listEntry value="6">@Strings.PLN</listEntry>
+			<listEntry value="7">@Strings.AUD</listEntry>
 		</settingConfig>
 	</setting>
 
