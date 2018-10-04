@@ -1,5 +1,7 @@
 using Toybox.WatchUi as Ui;
 using Toybox.Communications as Comm;
+using Toybox.Application.Storage as Stor;
+using Toybox.Time;
 
 class BitcoinView extends Ui.View {
 
@@ -7,6 +9,8 @@ class BitcoinView extends Ui.View {
 	var currencyView;
 	var bitCoinPrice = "Loading...";
 	var currency;
+	var priceValueKey = "price";
+	var priceCacheValueKey = "price_cache_time";
 
     function initialize(currencyVal) {
     	View.initialize();
@@ -38,7 +42,21 @@ class BitcoinView extends Ui.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-    	makeRequest();
+    	var cacheTime = Stor.getValue(priceCacheValueKey);
+    	var nowTime = 0;
+    	var timeDiff = 10000;
+    	if (cacheTime) {
+    		nowTime = Time.now().value();
+    		timeDiff = nowTime - cacheTime;
+    	}
+    	
+    	if (timeDiff > 10) {
+    		System.println("Cache timeout, make request.");
+    		makeRequest();
+    	} else {
+    		System.println("Cache hit, no request.");
+    		bitCoinPrice = Stor.getValue(priceValueKey);
+    	}
     }
 
     // Update the view
@@ -46,6 +64,7 @@ class BitcoinView extends Ui.View {
         // Call the parent onUpdate function to redraw the layout
         System.println("Price: " + bitCoinPrice);
         View.onUpdate(dc);
+        //var bitCoinFloat = bitCoinPrice.toString().toFloat().format("%[.2]");
 		bitCoinView.setText(bitCoinPrice);
 		currencyView.draw(dc);
         bitCoinView.draw(dc);
@@ -58,7 +77,7 @@ class BitcoinView extends Ui.View {
     }
    
     function makeRequest() {
-    	var url = "https://api.coinbase.com/v2/prices/BTC-" + currency + "/spot";
+    	var url = "https://btcbackend.azurewebsites.net/price?currency=" + currency;
     	System.println(url);
     	var params = {};
     	var options = {
@@ -73,7 +92,12 @@ class BitcoinView extends Ui.View {
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
-    		bitCoinPrice = data.get("data").get("amount");
+    		bitCoinPrice = data.get("price");
+    		bitCoinPrice = bitCoinPrice.toString().toFloat().format("%.2f");
+    		
+    		Stor.setValue(priceValueKey, bitCoinPrice);
+    		Stor.setValue(priceCacheValueKey, Time.now().value());
+    		
     	} else {
     		System.println("Response: " + responseCode);
     		bitCoinPrice = "Load Fail";
