@@ -50,7 +50,7 @@ class BitcoinView extends Ui.View {
     		timeDiff = nowTime - cacheTime;
     	}
     	
-    	if (timeDiff > 10) {
+    	if (timeDiff > 30) {
     		System.println("Cache timeout, make request.");
     		makeRequest();
     	} else {
@@ -77,12 +77,12 @@ class BitcoinView extends Ui.View {
     }
    
     function makeRequest() {
-    	var url = "https://btcbackend.azurewebsites.net/price?currency=" + currency;
+    	var url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=" + currency;
     	System.println(url);
     	var params = {};
     	var options = {
     		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
-    		:headers => {},
+    		:headers => {"X-CMC_PRO_API_KEY" => "842053ca-84bd-4d71-9658-9d309edd3b43"},
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
     	Comm.makeWebRequest(url, params, options, method(:onReceive));
@@ -92,7 +92,7 @@ class BitcoinView extends Ui.View {
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
-    		bitCoinPrice = data.get("price");
+    		bitCoinPrice = data.get("data").get("BTC").get("quote").get(currency).get("price");
     		bitCoinPrice = bitCoinPrice.toString().toFloat().format("%.2f");
     		
     		Stor.setValue(priceValueKey, bitCoinPrice);
