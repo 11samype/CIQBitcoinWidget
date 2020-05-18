@@ -11,10 +11,13 @@ class BitcoinView extends Ui.View {
 	var currency;
 	var priceValueKey = "price";
 	var priceCacheValueKey = "price_cache_time";
+	var backend;
 
-    function initialize(currencyVal) {
+    function initialize(currencyVal, backendVal) {
     	View.initialize();
     	currency = currencyVal;
+    	
+    	backend = backendVal;
     }
 
     // Load your resources here
@@ -77,12 +80,14 @@ class BitcoinView extends Ui.View {
     }
    
     function makeRequest() {
-    	var url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=" + currency;
+    	var url = getBackendURL();
     	System.println(url);
+    	var headerKey = getHeaderKey();
+    	var headerValue = getHeaderValue();
     	var params = {};
     	var options = {
     		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
-    		:headers => {"X-CMC_PRO_API_KEY" => "842053ca-84bd-4d71-9658-9d309edd3b43"},
+    		:headers => {headerKey => headerValue},
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
     	Comm.makeWebRequest(url, params, options, method(:onReceive));
@@ -92,7 +97,7 @@ class BitcoinView extends Ui.View {
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
-    		bitCoinPrice = data.get("data").get("BTC").get("quote").get(currency).get("price");
+    		bitCoinPrice = getPrice(data);
     		bitCoinPrice = bitCoinPrice.toString().toFloat().format("%.2f");
     		
     		Stor.setValue(priceValueKey, bitCoinPrice);
@@ -103,6 +108,74 @@ class BitcoinView extends Ui.View {
     		bitCoinPrice = "Load Fail";
     	}
     	Ui.requestUpdate();
+    }
+    
+    function getBackendURL() {
+    	switch (backend) {
+			case "BitcoinAverage": {
+				return "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC&fiat=" + currency;
+				break;
+			}
+			case "CoinMarketCap": {
+				return "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=" + currency;
+				break;
+			}
+			case "Coinbase": {
+				return "https://api.coinbase.com/v2/prices/BTC-" + currency + "/spot";
+				break;
+			}
+		}
+    }
+    
+    function getHeaderKey() {
+    	switch (backend) {
+			case "BitcoinAverage": {
+				return "x-ba-key";
+				break;
+			}
+			case "CoinMarketCap": {
+				return "X-CMC_PRO_API_KEY";
+				break;
+			}
+			case "Coinbase": {
+				return "";
+				break;
+			}
+		}
+    }
+    
+    function getHeaderValue() {
+    	switch (backend) {
+			case "BitcoinAverage": {
+				return "ZDYxMWJkOWIzNmIwNGRjMmFjYzM3ODhhOGQxY2JkZWY";
+				break;
+			}
+			case "CoinMarketCap": {
+				return "842053ca-84bd-4d71-9658-9d309edd3b43";
+				break;
+			}
+			case "Coinbase": {
+				return "";
+				break;
+			}
+		}
+    }
+    
+    function getPrice(data) {
+    	switch (backend) {
+			case "BitcoinAverage": {
+				return data.get("BTC" + currency).get("last");
+				break;
+			}
+			case "CoinMarketCap": {
+				return data.get("data").get("BTC").get("quote").get(currency).get("price");
+				break;
+			}
+			case "Coinbase": {
+				return data.get("data").get("amount");
+				break;
+			}
+		}
     }
     
 }

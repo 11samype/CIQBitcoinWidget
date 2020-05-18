@@ -11,5 +11,13 @@
 			<listEntry value="7">@Strings.AUD</listEntry>
 		</settingConfig>
 	</setting>
+	
+	<setting propertyKey="@Properties.backend" title="@Strings.backend">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.BitcoinAverage</listEntry>
+			<listEntry value="1">@Strings.CoinMarketCap</listEntry>
+			<!-- <listEntry value="2">@Strings.Coinbase</listEntry> Coinbase crashes Connect app, don't care enough to fix...-->
+		</settingConfig>
+	</setting>
 
 </settings>

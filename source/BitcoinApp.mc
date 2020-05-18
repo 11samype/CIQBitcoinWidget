@@ -4,6 +4,7 @@ class BitcoinApp extends App.AppBase {
 
 	hidden var mView;
 	var currency;
+	var backend;
 
     function initialize() {
     
@@ -48,7 +49,25 @@ class BitcoinApp extends App.AppBase {
 			}
 		}
 		
+		var backendNum = AppBase.getProperty("backend");
+		
+		switch (backendNum) {
+			case 0: {
+				backend = "BitcoinAverage";
+				break;
+			}
+			case 1: {
+				backend = "CoinMarketCap";
+				break;
+			}
+			case 2: {
+				backend = "Coinbase";
+				break;
+			}
+		}
+		
 		System.println(currency);
+		System.println(backend);
 
     }
 
@@ -64,7 +83,7 @@ class BitcoinApp extends App.AppBase {
     function getInitialView() {
     	//mView = new BitcoinView();
         //return [ mView, new BitcoinDelegate(mView.method(:onReceive)) ];
-        return [new BitcoinView(currency) ];
+        return [new BitcoinView(currency, backend) ];
     }
 
 }
