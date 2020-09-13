@@ -13,4 +13,6 @@
     <string id="BitcoinAverage">BitcoinAverage</string>
     <string id="CoinMarketCap">CoinMarketCap</string>
     <string id="Coinbase">Coinbase</string>
+    <string id="Kraken">Kraken</string>
+    <string id="Bitstamp">Bitstamp</string>
 </strings>

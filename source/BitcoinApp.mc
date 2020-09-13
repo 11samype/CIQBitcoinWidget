@@ -64,6 +64,14 @@ class BitcoinApp extends App.AppBase {
 				backend = "Coinbase";
 				break;
 			}
+			case 3: {
+				backend = "Bitstamp";
+				break;
+			}
+			case 4: {
+				backend = "Kraken";
+				break;
+			}
 		}
 		
 		System.println(currency);

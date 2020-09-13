@@ -124,6 +124,15 @@ class BitcoinView extends Ui.View {
 				return "https://api.coinbase.com/v2/prices/BTC-" + currency + "/spot";
 				break;
 			}
+			case "Bitstamp": {
+				var currencyPair = "BTC" + currency;
+				return "https://www.bitstamp.net/api/v2/ticker/" + currencyPair.toLower();
+				break;
+			}
+			case "Kraken": {
+				return "https://api.kraken.com/0/public/Ticker?pair=XBT" + currency;
+				break;
+			}
 		}
     }
     
@@ -138,6 +147,14 @@ class BitcoinView extends Ui.View {
 				break;
 			}
 			case "Coinbase": {
+				return "";
+				break;
+			}
+			case "Bitstamp": {
+				return "";
+				break;
+			}
+			case "Kraken": {
 				return "";
 				break;
 			}
@@ -158,6 +175,14 @@ class BitcoinView extends Ui.View {
 				return "";
 				break;
 			}
+			case "Bitstamp": {
+				return "";
+				break;
+			}
+			case "Kraken": {
+				return "";
+				break;
+			}
 		}
     }
     
@@ -173,6 +198,14 @@ class BitcoinView extends Ui.View {
 			}
 			case "Coinbase": {
 				return data.get("data").get("amount");
+				break;
+			}
+			case "Bitstamp": {
+				return data.get("last");
+				break;
+			}
+			case "Kraken": {
+				return data.get("result").get("XXBTZUSD").get("c")[0];
 				break;
 			}
 		}
