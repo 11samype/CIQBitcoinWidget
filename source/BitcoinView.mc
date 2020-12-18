@@ -133,6 +133,10 @@ class BitcoinView extends Ui.View {
 				return "https://api.kraken.com/0/public/Ticker?pair=XBT" + currency;
 				break;
 			}
+			case "CoinGecko": {
+				return "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=" + currency;
+				break;
+			}
 		}
     }
     
@@ -155,6 +159,10 @@ class BitcoinView extends Ui.View {
 				break;
 			}
 			case "Kraken": {
+				return "";
+				break;
+			}
+			case "CoinGecko": {
 				return "";
 				break;
 			}
@@ -183,6 +191,10 @@ class BitcoinView extends Ui.View {
 				return "";
 				break;
 			}
+			case "CoinGecko": {
+				return "";
+				break;
+			}
 		}
     }
     
@@ -206,6 +218,10 @@ class BitcoinView extends Ui.View {
 			}
 			case "Kraken": {
 				return data.get("result").get("XXBTZUSD").get("c")[0];
+				break;
+			}
+			case "CoinGecko": {
+				return data.get("bitcoin").get("usd");
 				break;
 			}
 		}

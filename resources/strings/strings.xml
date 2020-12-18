@@ -15,4 +15,5 @@
     <string id="Coinbase">Coinbase</string>
     <string id="Kraken">Kraken</string>
     <string id="Bitstamp">Bitstamp</string>
+    <string id="CoinGecko">CoinGecko</string>
 </strings>
