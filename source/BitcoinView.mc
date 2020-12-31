@@ -22,7 +22,7 @@ class BitcoinView extends Ui.View {
 
     // Load your resources here
     function onLayout(dc) {
-    	bitCoinView = new WatchUi.Text({
+    	bitCoinView = new Ui.Text({
     		:text => bitCoinPrice,
     		:color => Graphics.COLOR_WHITE,
     		:font => Graphics.FONT_LARGE,
@@ -30,7 +30,7 @@ class BitcoinView extends Ui.View {
     		:locY => WatchUi.LAYOUT_VALIGN_CENTER
     	});
     	
-    	currencyView = new WatchUi.Text({
+    	currencyView = new Ui.Text({
     		:text => currency,
     		:color => Graphics.COLOR_WHITE,
     		:font => Graphics.FONT_LARGE,
@@ -121,7 +121,7 @@ class BitcoinView extends Ui.View {
 				break;
 			}
 			case "Coinbase": {
-				return "https://api.coinbase.com/v2/prices/BTC-" + currency + "/spot";
+				return "https://api.coinbase.com/v2/prices/spot?currency=" + currency;
 				break;
 			}
 			case "Bitstamp": {
