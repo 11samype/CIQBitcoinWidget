@@ -217,11 +217,11 @@ class BitcoinView extends Ui.View {
 				break;
 			}
 			case "Kraken": {
-				return data.get("result").get("XXBTZUSD").get("c")[0];
+				return data.get("result").get("XXBTZ" + currency).get("c")[0];
 				break;
 			}
 			case "CoinGecko": {
-				return data.get("bitcoin").get("usd");
+				return data.get("bitcoin").get(currency.toLower());
 				break;
 			}
 		}
