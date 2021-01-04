@@ -53,7 +53,7 @@ class BitcoinApp extends App.AppBase {
 		
 		switch (backendNum) {
 			case 0: {
-				backend = "Coinbase";
+				backend = "CoinGecko";
 				break;
 			}
 			case 1: {

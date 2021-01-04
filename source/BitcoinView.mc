@@ -82,12 +82,9 @@ class BitcoinView extends Ui.View {
     function makeRequest() {
     	var url = getBackendURL();
     	System.println(url);
-    	var headerKey = getHeaderKey();
-    	var headerValue = getHeaderValue();
     	var params = {};
     	var options = {
     		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
-    		:headers => {headerKey => headerValue},
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
     	Comm.makeWebRequest(url, params, options, method(:onReceive));
@@ -111,120 +108,11 @@ class BitcoinView extends Ui.View {
     }
     
     function getBackendURL() {
-    	switch (backend) {
-			case "BitcoinAverage": {
-				return "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC&fiat=" + currency;
-				break;
-			}
-			case "CoinMarketCap": {
-				return "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=" + currency;
-				break;
-			}
-			case "Coinbase": {
-				return "https://api.coinbase.com/v2/prices/spot?currency=" + currency;
-				break;
-			}
-			case "Bitstamp": {
-				var currencyPair = "BTC" + currency;
-				return "https://www.bitstamp.net/api/v2/ticker/" + currencyPair.toLower();
-				break;
-			}
-			case "Kraken": {
-				return "https://api.kraken.com/0/public/Ticker?pair=XBT" + currency;
-				break;
-			}
-			case "CoinGecko": {
-				return "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=" + currency;
-				break;
-			}
-		}
-    }
-    
-    function getHeaderKey() {
-    	switch (backend) {
-			case "BitcoinAverage": {
-				return "x-ba-key";
-				break;
-			}
-			case "CoinMarketCap": {
-				return "X-CMC_PRO_API_KEY";
-				break;
-			}
-			case "Coinbase": {
-				return "";
-				break;
-			}
-			case "Bitstamp": {
-				return "";
-				break;
-			}
-			case "Kraken": {
-				return "";
-				break;
-			}
-			case "CoinGecko": {
-				return "";
-				break;
-			}
-		}
-    }
-    
-    function getHeaderValue() {
-    	switch (backend) {
-			case "BitcoinAverage": {
-				return "ZDYxMWJkOWIzNmIwNGRjMmFjYzM3ODhhOGQxY2JkZWY";
-				break;
-			}
-			case "CoinMarketCap": {
-				return "842053ca-84bd-4d71-9658-9d309edd3b43";
-				break;
-			}
-			case "Coinbase": {
-				return "";
-				break;
-			}
-			case "Bitstamp": {
-				return "";
-				break;
-			}
-			case "Kraken": {
-				return "";
-				break;
-			}
-			case "CoinGecko": {
-				return "";
-				break;
-			}
-		}
+		return "https://btc-beckend.azurewebsites.net/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
     }
     
     function getPrice(data) {
-    	switch (backend) {
-			case "BitcoinAverage": {
-				return data.get("BTC" + currency).get("last");
-				break;
-			}
-			case "CoinMarketCap": {
-				return data.get("data").get("BTC").get("quote").get(currency).get("price");
-				break;
-			}
-			case "Coinbase": {
-				return data.get("data").get("amount");
-				break;
-			}
-			case "Bitstamp": {
-				return data.get("last");
-				break;
-			}
-			case "Kraken": {
-				return data.get("result").get("XXBTZ" + currency).get("c")[0];
-				break;
-			}
-			case "CoinGecko": {
-				return data.get("bitcoin").get(currency.toLower());
-				break;
-			}
-		}
+		return data.get("price");
     }
     
 }
