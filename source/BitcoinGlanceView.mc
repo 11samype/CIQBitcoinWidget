@@ -27,7 +27,7 @@ class BitcoinGlanceView extends Ui.GlanceView {
         dc.clear();
 		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
-		if (bitCoinPrice.equals("")) {
+		if (bitCoinPrice.equals("") || fetching) {
 			dc.drawText(10, 15, Graphics.FONT_GLANCE_NUMBER, "Bitcoin", Graphics.TEXT_JUSTIFY_LEFT);
 		} else {
 			dc.drawText(10, 15, Graphics.FONT_GLANCE_NUMBER, getSymbol() + bitCoinPrice, Graphics.TEXT_JUSTIFY_LEFT);
@@ -74,6 +74,18 @@ class BitcoinGlanceView extends Ui.GlanceView {
     		}
     		case "GBP": {
     			return "£";
+    			break;
+    		}
+    		case "ZAR": {
+    			return "R";
+    			break;
+    		}
+    		case "PLN": {
+    			return "zł";
+    			break;
+    		}
+    		case "AUD": {
+    			return "$";
     			break;
     		}
     	}
