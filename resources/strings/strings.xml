@@ -16,4 +16,6 @@
     <string id="Kraken">Kraken</string>
     <string id="Bitstamp">Bitstamp</string>
     <string id="CoinGecko">CoinGecko</string>
+    <string id="apikey">CoinMarketCap API Key</string>
+    <string id="APIKeyRequired">CoinMarketCap\n API key\nrequired</string>
 </strings>

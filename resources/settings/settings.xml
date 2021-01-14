@@ -14,13 +14,15 @@
 	
 	<setting propertyKey="@Properties.backend" title="@Strings.backend">
 		<settingConfig type="list">
-			<!-- <listEntry value="0">@Strings.BitcoinAverage</listEntry> BitcoinAverage is no longer free. Use CoinGecko instead. -->
 			<listEntry value="0">@Strings.CoinGecko</listEntry>
 			<listEntry value="1">@Strings.CoinMarketCap</listEntry>
 			<listEntry value="2">@Strings.Coinbase</listEntry>
 			<listEntry value="3">@Strings.Bitstamp</listEntry>
 			<listEntry value="4">@Strings.Kraken</listEntry>
 		</settingConfig>
+	</setting>
+	<setting propertyKey="@Properties.apikey" title="@Strings.apikey" helpUrl="https://pro.coinmarketcap.com/">
+		<settingConfig type="alphaNumeric" required="false"></settingConfig>
 	</setting>
 
 </settings>

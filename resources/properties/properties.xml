@@ -1,4 +1,5 @@
 <properties>
 	<property id="currency" type="number">0</property>
 	<property id="backend" type="number">0</property>
+	<property id="apikey" type="string"></property>
 </properties>

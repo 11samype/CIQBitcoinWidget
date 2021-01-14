@@ -7,23 +7,44 @@ class BitcoinView extends Ui.View {
 
 	var bitCoinView;
 	var currencyView;
-	var bitCoinPrice = "Loading...";
+	var bitCoinPrice = "";
 	var currency;
 	var priceValueKey = "price";
 	var priceCacheValueKey = "price_cache_time";
 	var backend;
+	var fetching = false;
+	var fetchFailed = false;
+	var fetchingView;
+	var apikey;
+	var failedView;
 
-    function initialize(currencyVal, backendVal) {
+    function initialize(currencyVal, backendVal, apikeyVal) {
     	View.initialize();
     	currency = currencyVal;
-    	
     	backend = backendVal;
+    	apikey = apikeyVal;
     }
 
     // Load your resources here
     function onLayout(dc) {
     	bitCoinView = new Ui.Text({
     		:text => bitCoinPrice,
+    		:color => Graphics.COLOR_WHITE,
+    		:font => Graphics.FONT_NUMBER_MEDIUM,
+    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
+    		:locY => WatchUi.LAYOUT_VALIGN_CENTER
+    	});
+    	
+    	fetchingView = new Ui.Text({
+    		:text => "Loading...",
+    		:color => Graphics.COLOR_WHITE,
+    		:font => Graphics.FONT_LARGE,
+    		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
+    		:locY => WatchUi.LAYOUT_VALIGN_CENTER
+    	});
+    	
+    	failedView = new Ui.Text({
+    		:text => "Load Fail",
     		:color => Graphics.COLOR_WHITE,
     		:font => Graphics.FONT_LARGE,
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
@@ -45,32 +66,27 @@ class BitcoinView extends Ui.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-    	var cacheTime = Stor.getValue(priceCacheValueKey);
-    	var nowTime = 0;
-    	var timeDiff = 10000;
-    	if (cacheTime) {
-    		nowTime = Time.now().value();
-    		timeDiff = nowTime - cacheTime;
-    	}
-    	
-    	if (timeDiff > 30) {
-    		System.println("Cache timeout, make request.");
-    		makeRequest();
-    	} else {
-    		System.println("Cache hit, no request.");
-    		bitCoinPrice = Stor.getValue(priceValueKey);
-    	}
+		makeRequest();
     }
 
     // Update the view
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
-        System.println("Price: " + bitCoinPrice);
         View.onUpdate(dc);
-        //var bitCoinFloat = bitCoinPrice.toString().toFloat().format("%[.2]");
-		bitCoinView.setText(bitCoinPrice);
+		
+		currencyView.setText(currency);
 		currencyView.draw(dc);
-        bitCoinView.draw(dc);
+        
+        if (fetching) {
+        	fetchingView.draw(dc);
+        } else if (fetchFailed) {
+         	System.println("Failed");
+        	failedView.draw(dc);
+        } else {
+        	System.println("Price: " + bitCoinPrice);
+        	bitCoinView.setText(bitCoinPrice);
+        	bitCoinView.draw(dc);
+        }
     }
 
     // Called when this View is removed from the screen. Save the
@@ -80,6 +96,23 @@ class BitcoinView extends Ui.View {
     }
    
     function makeRequest() {
+    
+    	var cacheTime = Stor.getValue(priceCacheValueKey);
+    	var nowTime = 0;
+    	var timeDiff = 10000;
+    	if (cacheTime) {
+    		nowTime = Time.now().value();
+    		timeDiff = nowTime - cacheTime;
+    	}
+    	
+    	if (timeDiff > 5) {
+    		System.println("Cache timeout, make request.");
+    	} else {
+    		System.println("Cache hit, no request.");
+    		bitCoinPrice = Stor.getValue(priceValueKey);
+    		return;
+    	}
+    
     	var url = getBackendURL();
     	System.println(url);
     	var params = {};
@@ -88,31 +121,56 @@ class BitcoinView extends Ui.View {
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
     	Comm.makeWebRequest(url, params, options, method(:onReceive));
+    	fetching = true;
+    	fetchFailed = false;
+    	Ui.requestUpdate();
     }
     
     function onReceive(responseCode, data) {
+    	fetching = false;
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
     		bitCoinPrice = getPrice(data);
-    		bitCoinPrice = bitCoinPrice.toString().toFloat().format("%.2f");
+    		bitCoinPrice = formatPrice(bitCoinPrice);
     		
     		Stor.setValue(priceValueKey, bitCoinPrice);
     		Stor.setValue(priceCacheValueKey, Time.now().value());
     		
     	} else {
     		System.println("Response: " + responseCode);
-    		bitCoinPrice = "Load Fail";
+    		fetchFailed = true;
     	}
     	Ui.requestUpdate();
     }
     
+    function formatPrice(price) {
+    	var remainder = price - price.toNumber();
+    	if (remainder != 0) {
+    		return price.toString().toFloat().format("%.2f");
+    	} else {
+    		return price.toString().toFloat().format("%.0f");
+    	}
+    }
+    
     function getBackendURL() {
-		return "https://btc-beckend.azurewebsites.net/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
+    	var url = "https://btc-beckend.azurewebsites.net/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
+    	if (backend.equals("CoinMarketCap")) {
+    		url = url + "&apikey=" + apikey;
+    	}
+		return url;
     }
     
     function getPrice(data) {
 		return data.get("price");
+    }
+    
+    function setCurrency(newCurrency) {
+    	currency = newCurrency;
+    }
+    
+    function setBackend(newBackend) {
+    	backend = newBackend;
     }
     
 }
