@@ -27,7 +27,7 @@ class BitcoinGlanceView extends Ui.GlanceView {
         dc.clear();
 		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
-		if (bitCoinPrice.equals("") || fetching) {
+		if (bitCoinPrice.equals("") || fetching || apiKeyNeeded()) {
 			dc.drawText(10, 15, Graphics.FONT_GLANCE_NUMBER, "Bitcoin", Graphics.TEXT_JUSTIFY_LEFT);
 		} else {
 			dc.drawText(10, 15, Graphics.FONT_GLANCE_NUMBER, getSymbol() + bitCoinPrice, Graphics.TEXT_JUSTIFY_LEFT);
@@ -94,6 +94,9 @@ class BitcoinGlanceView extends Ui.GlanceView {
     // NEED TO PULL THES OUT INTO SHARED CODE
     
     function makeRequest() {
+	    if (apiKeyNeeded()) {
+	    	return;
+	    }
     	var url = getBackendURL();
     	System.println(url);
     	var params = {};
@@ -155,5 +158,9 @@ class BitcoinGlanceView extends Ui.GlanceView {
     
     function setAPIKey(newAPIKey) {
     	apiKey = newAPIKey;
+    }
+    
+    function apiKeyNeeded() {
+    	return backend.equals("CoinMarketCap") && apiKey.length() < 30;
     }
 }
