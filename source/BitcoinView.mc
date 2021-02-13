@@ -17,12 +17,15 @@ class BitcoinView extends Ui.View {
 	var fetchingView;
 	var apikey;
 	var failedView;
+	
+	var bitcoinBackend;
 
-    function initialize(currencyVal, backendVal, apikeyVal) {
+    function initialize(currencyVal, backendVal, apikeyVal, cryptoBackendVal) {
     	View.initialize();
     	currency = currencyVal;
     	backend = backendVal;
     	apikey = apikeyVal;
+    	bitcoinBackend = cryptoBackendVal;
     }
 
     // Load your resources here

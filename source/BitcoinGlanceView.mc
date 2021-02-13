@@ -12,14 +12,18 @@ var priceValueKey = "price";
 var apiKey;
 var priceCacheValueKey = "price_cache_time";
 
+var cryptoBackend;
+
 (:glance)
 class BitcoinGlanceView extends Ui.GlanceView {
-    function initialize(currencyVal, backendVal, apiKeyVal) {
+    function initialize(currencyVal, backendVal, apiKeyVal, cryptoBackendVal) {
         GlanceView.initialize();
         
         currency = currencyVal;
     	backend = backendVal;
     	apiKey = apiKeyVal;
+    	
+    	cryptoBackend = cryptoBackendVal;
     }
 
     function onUpdate(dc) {
@@ -55,40 +59,7 @@ class BitcoinGlanceView extends Ui.GlanceView {
     }
     
     function getSymbol() {
-    	switch (currency) {
-    		case "USD": {
-    			return "$";
-    			break;
-    		}
-    		case "CAD": {
-    			return "$";
-    			break;
-    		}
-    		case "EUR": {
-    			return "€";
-    			break;
-    		}
-    		case "CNY": {
-    			return "¥";
-    			break;
-    		}
-    		case "GBP": {
-    			return "£";
-    			break;
-    		}
-    		case "ZAR": {
-    			return "R";
-    			break;
-    		}
-    		case "PLN": {
-    			return "zł";
-    			break;
-    		}
-    		case "AUD": {
-    			return "$";
-    			break;
-    		}
-    	}
+    	return cryptoBackend.getCurrencySymbol();
     }
     
     // NEED TO PULL THES OUT INTO SHARED CODE
