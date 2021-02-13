@@ -56,31 +56,25 @@ class BitcoinBackend {
 		"AUD" => "$"
 	};
 	
-
+	hidden var crypto;
 	hidden var currency;
 	hidden var backend;
+	var apikey;
 	
-	function initialize() {
+	var fetch;
+	var fetchFailed;
+	
+	function initialize(cryptoVal) {
+		crypto = cryptoVal;
+//		currency = currencyVal;
+//		backend = backendVal;
+//		apikey = apikeyVal;
 	}
 	
 	function makeRequest(onReceive) {
-    
-    	var cacheTime = Stor.getValue(PRICECACHEVALUEKEY);
-    	var nowTime = 0;
-    	var timeDiff = 10000;
-    	if (cacheTime) {
-    		nowTime = Time.now().value();
-    		timeDiff = nowTime - cacheTime;
-    	}
-    	
-    	if (timeDiff > CACHETIME) {
-    		System.println("Cache timeout, make request.");
-    	} else {
-    		System.println("Cache hit, no request.");
-    		bitCoinPrice = Stor.getValue(CACHEVALUEKEY);
-    		return;
-    	}
-    
+		if (apiKeyNeeded()) {
+	    	return;
+	    }
     	var url = getBackendURL();
     	System.println(url);
     	var params = {};
@@ -91,18 +85,19 @@ class BitcoinBackend {
     	Comm.makeWebRequest(url, params, options, onReceive);
     	fetching = true;
     	fetchFailed = false;
+//    	Ui.requestUpdate();
     }
     
     function getBackendURL() {
     	var url = "https://btc-beckend.azurewebsites.net/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
-    	if (backend.equals("CoinMarketCap")) {
+    	if (backend.equals(BACKENDS[CoinMarketCap])) {
     		url = url + "&apikey=" + apikey;
     	}
 		return url;
     }
     
     function apiKeyNeeded() {
-    	return backend.equals("CoinMarketCap") && apiKey.length() < 30;
+    	return backend.equals(BACKENDS[CoinMarketCap]) && apikey.length() < 30;
     }
     
     function getCurrency() {
@@ -123,6 +118,19 @@ class BitcoinBackend {
     
     function getCurrencySymbol() {
     	return CURRENCYSYMBOLS[currency];
+    }
+    
+    function formatPrice(price) {
+    	var remainder = price - price.toNumber();
+    	if (remainder != 0) {
+    		return price.toString().toFloat().format("%.2f");
+    	} else {
+    		return price.toString().toFloat().format("%.0f");
+    	}
+    }
+    
+    function getPrice(data) {
+		return data.get("price");
     }
 	
 }

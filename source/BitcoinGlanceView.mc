@@ -16,13 +16,8 @@ var cryptoBackend;
 
 (:glance)
 class BitcoinGlanceView extends Ui.GlanceView {
-    function initialize(currencyVal, backendVal, apiKeyVal, cryptoBackendVal) {
+    function initialize(cryptoBackendVal) {
         GlanceView.initialize();
-        
-        currency = currencyVal;
-    	backend = backendVal;
-    	apiKey = apiKeyVal;
-    	
     	cryptoBackend = cryptoBackendVal;
     }
 
@@ -31,7 +26,7 @@ class BitcoinGlanceView extends Ui.GlanceView {
         dc.clear();
 		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
-		if (bitCoinPrice.equals("") || fetching || apiKeyNeeded()) {
+		if (bitCoinPrice.equals("") || fetching || cryptoBackend.apiKeyNeeded()) {
 			dc.drawText(10, 15, Graphics.FONT_GLANCE_NUMBER, "Bitcoin", Graphics.TEXT_JUSTIFY_LEFT);
 		} else {
 			dc.drawText(10, 15, Graphics.FONT_GLANCE_NUMBER, getSymbol() + bitCoinPrice, Graphics.TEXT_JUSTIFY_LEFT);
@@ -40,7 +35,7 @@ class BitcoinGlanceView extends Ui.GlanceView {
     }
     
     function onShow() {
-    	var cacheTime = Stor.getValue(priceCacheValueKey);
+    	var cacheTime = Stor.getValue(cryptoBackend.PRICECACHEVALUEKEY);
     	var nowTime = 0;
     	var timeDiff = 10000;
     	if (cacheTime) {
@@ -48,14 +43,14 @@ class BitcoinGlanceView extends Ui.GlanceView {
     		timeDiff = nowTime - cacheTime;
     	}
     	
-    	if (timeDiff > 10) {
+    	if (timeDiff > cryptoBackend.CACHETIME) {
     		System.println("Cache timeout, make request.");
     		makeRequest();
     	} else {
     		System.println("Cache hit, no request.");
 //    		bitCoinPrice = Stor.getValue(priceValueKey);
     	}
-    	bitCoinPrice = Stor.getValue(priceValueKey);
+    	bitCoinPrice = Stor.getValue(cryptoBackend.CACHEVALUEKEY);
     }
     
     function getSymbol() {
@@ -65,19 +60,8 @@ class BitcoinGlanceView extends Ui.GlanceView {
     // NEED TO PULL THES OUT INTO SHARED CODE
     
     function makeRequest() {
-	    if (apiKeyNeeded()) {
-	    	return;
-	    }
-    	var url = getBackendURL();
-    	System.println(url);
-    	var params = {};
-    	var options = {
-    		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
-    		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
-    	};
-    	Comm.makeWebRequest(url, params, options, method(:onReceive));
+    	cryptoBackend.makeRequest(method(:onReceive));
     	fetching = true;
-    	Ui.requestUpdate();
     }
     
     function onReceive(responseCode, data) {
@@ -85,8 +69,8 @@ class BitcoinGlanceView extends Ui.GlanceView {
     	System.println(data);
     	if (responseCode == 200) {
     		System.println("Request Successful");
-    		bitCoinPrice = getPrice(data);
-    		bitCoinPrice = formatPrice(bitCoinPrice);
+    		bitCoinPrice = cryptoBackend.getPrice(data);
+    		bitCoinPrice = cryptoBackend.formatPrice(bitCoinPrice);
     		
     		Stor.setValue(priceValueKey, bitCoinPrice);
     		Stor.setValue(priceCacheValueKey, Time.now().value());
@@ -96,42 +80,5 @@ class BitcoinGlanceView extends Ui.GlanceView {
     		bitCoinPrice = "Load Fail";
     	}
     	Ui.requestUpdate();
-    }
-    
-    function formatPrice(price) {
-    	var remainder = price - price.toNumber();
-    	if (remainder != 0) {
-    		return price.toString().toFloat().format("%.2f");
-    	} else {
-    		return price.toString().toFloat().format("%.0f");
-    	}
-    }
-    
-    function getBackendURL() {
-		var url = "https://btc-beckend.azurewebsites.net/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
-    	if (backend.equals("CoinMarketCap")) {
-    		url = url + "&apikey=" + apiKey;
-    	}
-		return url;
-    }
-    
-    function getPrice(data) {
-		return data.get("price");
-    }
-    
-    function setCurrency(newCurrency) {
-    	currency = newCurrency;
-    }
-    
-    function setBackend(newBackend) {
-    	backend = newBackend;
-    }
-    
-    function setAPIKey(newAPIKey) {
-    	apiKey = newAPIKey;
-    }
-    
-    function apiKeyNeeded() {
-    	return backend.equals("CoinMarketCap") && apiKey.length() < 30;
     }
 }

@@ -18,16 +18,11 @@ class BitcoinApp extends App.AppBase {
     
     	AppBase.initialize();
     	
-    	cryptoBackend = new BitcoinBackend();
-    
+    	cryptoBackend = new BitcoinBackend("BTC");
+    	
 		getCurrencyProperty();
 		getBackendProperty();
 		getAPIKeyProperty();
-		
-		System.println(currency);
-		System.println(backend);
-		System.println(apikey);
-		
     }
     
     function onSettingsChanged() {
@@ -35,16 +30,13 @@ class BitcoinApp extends App.AppBase {
 		getBackendProperty();
 		getAPIKeyProperty();
 		if (isGlance) {
-			glanceView.setCurrency(currency);
-			glanceView.setBackend(backend);
-			glanceView.setAPIKey(apikey);
 			glanceView.makeRequest();
 		} else {
-			if (apiKeyNeeded()) {
+			if (cryptoBackend.apiKeyNeeded()) {
 				mView = new APIKeyView();
 				WatchUi.switchToView(mView, null, WatchUi.SLIDE_IMMEDIATE);
 			} else {
-				mView = new BitcoinView(currency, backend, apikey);
+				mView = new BitcoinView(cryptoBackend);
 	        	mDelegate = new BitcoinDelegate(mView);
 	        	WatchUi.switchToView(mView, mDelegate, WatchUi.SLIDE_IMMEDIATE);
 			}
@@ -56,16 +48,20 @@ class BitcoinApp extends App.AppBase {
     	var currencyNum = AppBase.getProperty("currency");
     	currency = cryptoBackend.CURRENCIES[currencyNum];
     	cryptoBackend.setCurrency(currency);
+    	System.println(cryptoBackend.getCurrency());
     }
     
     function getBackendProperty() {
     	var backendNum = AppBase.getProperty("backend");
     	backend = cryptoBackend.BACKENDS[backendNum];
     	cryptoBackend.setBackend(backend);
+    	System.println(cryptoBackend.getBackend());
     }
     
     function getAPIKeyProperty() {
     	apikey = AppBase.getProperty("apikey");
+    	cryptoBackend.apikey = apikey;
+    	System.println(cryptoBackend.apikey);
     }
 
     // onStart() is called on application start up
@@ -79,25 +75,21 @@ class BitcoinApp extends App.AppBase {
     // Return the initial view of your application here
     function getInitialView() {
 
-    	if (apiKeyNeeded()) {
+    	if (cryptoBackend.apiKeyNeeded()) {
     		mView = new APIKeyView();
     		return [ mView ];
         } else {
-        	mView = new BitcoinView(currency, backend, apikey, cryptoBackend);
+        	mView = new BitcoinView(cryptoBackend);
         	mDelegate = new BitcoinDelegate(mView);
         	return [ mView, mDelegate ];
         }
         
     }
-    
-    function apiKeyNeeded() {
-    	return backend.equals("CoinMarketCap") && apikey.length() < 30;
-    }
 	
 (:glance)
 	function getGlanceView() {
 		isGlance = true;
-		glanceView = new BitcoinGlanceView(currency, backend, apikey, cryptoBackend);
+		glanceView = new BitcoinGlanceView(cryptoBackend);
 		return [ glanceView ];
 	}
 
