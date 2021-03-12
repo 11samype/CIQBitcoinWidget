@@ -1,5 +1,6 @@
 using Toybox.Communications as Comm;
 using Toybox.Application.Storage as Stor;
+using Toybox.Time;
 
 (:background)
 class BitcoinBackend {
@@ -61,11 +62,17 @@ class BitcoinBackend {
 	hidden var backend;
 	var apikey;
 	
+	var fetching = false;
 	var fetch;
-	var fetchFailed;
+	var fetchFailed = false;
+	
+	var price = "";
+	
+	var myOnReceive;
 	
 	function initialize(cryptoVal) {
 		crypto = cryptoVal;
+		price = Stor.getValue(CACHEVALUEKEY);
 //		currency = currencyVal;
 //		backend = backendVal;
 //		apikey = apikeyVal;
@@ -82,10 +89,30 @@ class BitcoinBackend {
     		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
-    	Comm.makeWebRequest(url, params, options, onReceive);
+    	
+    	Comm.makeWebRequest(url, params, options, method(:onReceive));
     	fetching = true;
     	fetchFailed = false;
-//    	Ui.requestUpdate();
+    	myOnReceive = onReceive;
+    }
+    
+    function onReceive(responseCode, data) {
+    	fetching = false;
+    	System.println(data);
+    	if (responseCode == 200) {
+    		System.println("Request Successful");
+    		price = getPrice(data);
+    		price = formatPrice(price);
+    		
+    		Stor.setValue(CACHEVALUEKEY, price);
+    		Stor.setValue(PRICECACHEVALUEKEY, Time.now().value());
+    		
+    		myOnReceive.invoke();
+    		
+    	} else {
+    		System.println("Response: " + responseCode);
+    		fetchFailed = true;
+    	}
     }
     
     function getBackendURL() {
@@ -133,4 +160,27 @@ class BitcoinBackend {
 		return data.get("price");
     }
 	
+	// has the cache expired?
+	function cacheExpired() {
+		var cacheTime = Stor.getValue(PRICECACHEVALUEKEY);
+    	var nowTime = 0;
+    	var timeDiff = 10000;
+    	if (cacheTime) {
+    		nowTime = Time.now().value();
+    		timeDiff = nowTime - cacheTime;
+    	}
+    	
+    	return timeDiff > CACHETIME;
+	}
+	
+	function getPriceTime() {
+		var priceTimeValue = Stor.getValue(PRICECACHEVALUEKEY);
+		return Time.Gregorian.info(new Time.Moment(priceTimeValue), Time.FORMAT_SHORT);
+	}
+	
+	function getFormattedPriceTime() {
+		var priceTime = getPriceTime();
+		return priceTime.hour.format("%2d") + ":" + priceTime.min.format("%02d");
+	}
+
 }
