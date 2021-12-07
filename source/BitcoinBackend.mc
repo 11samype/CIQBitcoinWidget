@@ -7,6 +7,7 @@ class BitcoinBackend {
 	const CACHETIME = 10;
 	const CACHEVALUEKEY = "price";
 	const PRICECACHEVALUEKEY = "price_cache_time";
+	const SECONDSINDAY = 86400;
 	
 	enum {
 		CoinGecko,
@@ -25,6 +26,16 @@ class BitcoinBackend {
 		ZAR,
 		PLN,
 		AUD
+	}
+	
+	enum {
+		mmddyyyy,
+		ddmmyyyy
+	}
+	
+	enum {
+		hr12,
+		hr24
 	}
 	
 	const BACKENDS = [
@@ -46,6 +57,16 @@ class BitcoinBackend {
 		"AUD"
 	];
 	
+	const DATEFORMATS = [
+		"mmddyyyy",
+		"ddmmyyyy"
+	];
+	
+	const TIMEFORMATS = [
+		"12hr",
+		"24hr"
+	];
+	
 	const CURRENCYSYMBOLS = {
 		"USD" => "$",
 		"EUR" => "€",
@@ -61,6 +82,8 @@ class BitcoinBackend {
 	hidden var currency;
 	hidden var backend;
 	var apikey;
+	hidden var dateformat;
+	hidden var timeformat;
 	
 	var fetching = false;
 	var fetch;
@@ -113,6 +136,22 @@ class BitcoinBackend {
     		System.println("Response: " + responseCode);
     		fetchFailed = true;
     	}
+    }
+    
+    function getDateformat() {
+    	return dateformat;
+    }
+    
+    function setDateformat(aDateformat) {
+    	dateformat = aDateformat;
+    }
+    
+    function getTimeformat() {
+    	return timeformat;
+    }
+    
+    function setTimeformat(aTimeformat) {
+    	timeformat = aTimeformat;
     }
     
     function getBackendURL() {
@@ -180,7 +219,57 @@ class BitcoinBackend {
 	
 	function getFormattedPriceTime() {
 		var priceTime = getPriceTime();
-		return priceTime.hour.format("%2d") + ":" + priceTime.min.format("%02d");
+		if (timeformat.equals(TIMEFORMATS[hr24])) {
+			return priceTime.hour.format("%2d") + ":" + priceTime.min.format("%02d");
+		} else {
+			var hour = priceTime.hour % 12;
+			var formattedHour;
+			if (hour < 10) {
+				formattedHour = hour.format("%1d");
+			} else {
+				formattedHour = hour.format("%2d");
+			}
+			var amPM;
+			if (priceTime.hour < 12) {
+				amPM = "AM";
+			} else {
+				amPM = "PM";
+			}
+			return formattedHour + ":" + priceTime.min.format("%02d") + amPM;
+		}
+	}
+	
+	function getFormattedPriceDate() {
+		var priceTime = getPriceTime();
+		var day = priceTime.day;
+		var month = priceTime.month;
+		var year = priceTime.year;
+		
+		if (dateformat.equals(DATEFORMATS[ddmmyyyy])) {
+			return day.format("%1d") + "/" + month.format("%1d") + "/" + year.format("%4d");
+		} else {
+			return month.format("%1d") + "/" + day.format("%1d") + "/" + year.format("%4d");
+		}
+	}
+	
+	function cacheOlderThanADayOld() {
+		var cacheTime = Stor.getValue(PRICECACHEVALUEKEY);
+    	var nowTime = 0;
+    	var timeDiff = 10000;
+    	if (cacheTime) {
+    		nowTime = Time.now().value();
+    		timeDiff = nowTime - cacheTime;
+    	}
+    	
+    	return timeDiff > SECONDSINDAY;
+	}
+	
+	function getFormattedPriceDateOrTime() {
+		if (cacheOlderThanADayOld()) {
+			return getFormattedPriceDate();
+		} else {
+			return getFormattedPriceTime();
+		}
 	}
 
 }

@@ -11,6 +11,8 @@ class BitcoinApp extends App.AppBase {
 	var currency;
 	var backend;
 	var apikey;
+	var dateformat;
+	var timeformat;
 	
 	var isGlance = false;
 
@@ -23,12 +25,16 @@ class BitcoinApp extends App.AppBase {
 		getCurrencyProperty();
 		getBackendProperty();
 		getAPIKeyProperty();
+		getDateFormatProperty();
+		getTimeFormatProperty();
     }
     
     function onSettingsChanged() {
     	getCurrencyProperty();
 		getBackendProperty();
 		getAPIKeyProperty();
+		getDateFormatProperty();
+		getTimeFormatProperty();
 		if (isGlance) {
 			glanceView.makeRequest();
 		} else {
@@ -62,6 +68,20 @@ class BitcoinApp extends App.AppBase {
     	apikey = AppBase.getProperty("apikey");
     	cryptoBackend.apikey = apikey;
     	System.println(cryptoBackend.apikey);
+    }
+    
+    function getDateFormatProperty() {
+    	var dateformatNum = AppBase.getProperty("dateformat");
+    	dateformat = cryptoBackend.DATEFORMATS[dateformatNum];
+    	cryptoBackend.setDateformat(dateformat);
+    	System.println(cryptoBackend.getDateformat());
+    }
+    
+    function getTimeFormatProperty() {
+    	var timeformatNum = AppBase.getProperty("timeformat");
+    	timeformat = cryptoBackend.TIMEFORMATS[timeformatNum];
+    	cryptoBackend.setTimeformat(timeformat);
+    	System.println(cryptoBackend.getTimeformat());
     }
 
     // onStart() is called on application start up

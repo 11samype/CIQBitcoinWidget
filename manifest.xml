@@ -3,6 +3,7 @@
         <iq:products>
             <iq:product id="approachs60"/>
             <iq:product id="approachs62"/>
+            <iq:product id="d2air"/>
             <iq:product id="d2charlie"/>
             <iq:product id="d2delta"/>
             <iq:product id="d2deltapx"/>
@@ -11,6 +12,7 @@
             <iq:product id="descentmk2"/>
             <iq:product id="descentmk2s"/>
             <iq:product id="enduro"/>
+            <iq:product id="epix2"/>
             <iq:product id="fenix5"/>
             <iq:product id="fenix5plus"/>
             <iq:product id="fenix5s"/>
@@ -28,11 +30,15 @@
             <iq:product id="fenixchronos"/>
             <iq:product id="fr245"/>
             <iq:product id="fr245m"/>
+            <iq:product id="fr55"/>
             <iq:product id="fr645"/>
             <iq:product id="fr645m"/>
             <iq:product id="fr735xt"/>
+            <iq:product id="fr745"/>
             <iq:product id="fr935"/>
             <iq:product id="fr945"/>
+            <iq:product id="fr945lte"/>
+            <iq:product id="instinct2s"/>
             <iq:product id="legacyherocaptainmarvel"/>
             <iq:product id="legacyherofirstavenger"/>
             <iq:product id="legacysagadarthvader"/>
@@ -46,6 +52,9 @@
             <iq:product id="marqexpedition"/>
             <iq:product id="marqgolfer"/>
             <iq:product id="venu"/>
+            <iq:product id="venu2"/>
+            <iq:product id="venu2plus"/>
+            <iq:product id="venu2s"/>
             <iq:product id="venud"/>
             <iq:product id="venusq"/>
             <iq:product id="venusqm"/>

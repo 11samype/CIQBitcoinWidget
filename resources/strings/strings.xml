@@ -18,4 +18,10 @@
     <string id="CoinGecko">CoinGecko</string>
     <string id="apikey">CoinMarketCap API Key</string>
     <string id="APIKeyRequired">CoinMarketCap\n API key\nrequired</string>
+    <string id="mmddyyyy">MM/DD/YYYY</string>
+    <string id="ddmmyyyy">DD/MM/YYYY</string>
+    <string id="dateformat">Date Format</string>
+    <string id="hr12">12 Hour</string>
+    <string id="hr24">24 Hour</string>
+    <string id="timeformat">Time Format</string>
 </strings>

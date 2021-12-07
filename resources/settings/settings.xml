@@ -21,6 +21,18 @@
 			<listEntry value="4">@Strings.Kraken</listEntry>
 		</settingConfig>
 	</setting>
+	<setting propertyKey="@Properties.dateformat" title="@Strings.dateformat">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.mmddyyyy</listEntry>
+			<listEntry value="1">@Strings.ddmmyyyy</listEntry>
+		</settingConfig>
+	</setting>
+	<setting propertyKey="@Properties.timeformat" title="@Strings.timeformat">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.hr12</listEntry>
+			<listEntry value="1">@Strings.hr24</listEntry>
+		</settingConfig>
+	</setting>
 	<setting propertyKey="@Properties.apikey" title="@Strings.apikey" helpUrl="https://pro.coinmarketcap.com/">
 		<settingConfig type="alphaNumeric" required="false"></settingConfig>
 	</setting>

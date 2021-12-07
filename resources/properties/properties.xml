@@ -1,5 +1,7 @@
 <properties>
 	<property id="currency" type="number">0</property>
 	<property id="backend" type="number">0</property>
+	<property id="dateformat" type="number">0</property>
+	<property id="timeformat" type="number">0</property>
 	<property id="apikey" type="string"></property>
 </properties>
