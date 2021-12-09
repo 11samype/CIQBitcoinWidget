@@ -214,7 +214,11 @@ class BitcoinBackend {
 	
 	function getPriceTime() {
 		var priceTimeValue = Stor.getValue(PRICECACHEVALUEKEY);
-		return Time.Gregorian.info(new Time.Moment(priceTimeValue), Time.FORMAT_SHORT);
+		var priceMoment = new Time.Moment(Time.now().value());
+		if (priceTimeValue) {
+			priceMoment = new Time.Moment(priceTimeValue);
+		}
+		return Time.Gregorian.info(priceMoment, Time.FORMAT_SHORT);
 	}
 	
 	function getFormattedPriceTime() {
