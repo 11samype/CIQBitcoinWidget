@@ -28,8 +28,13 @@ class BitcoinGlanceView extends Ui.GlanceView {
 		var viewHeight = dc.getHeight();
 		var line1Start = viewHeight / 6;
 		var line2Start = viewHeight / 2;
+		
+		var bitcoinPriceFormatted = "Loading...";
+		if (cryptoBackend.price.length() > 0) {
+			bitcoinPriceFormatted = getSymbol() + cryptoBackend.price;
+		}
 
-		dc.drawText(0, line1Start, Graphics.FONT_TINY, getSymbol() + cryptoBackend.price, Graphics.TEXT_JUSTIFY_LEFT);
+		dc.drawText(0, line1Start, Graphics.FONT_TINY, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
 		dc.drawText(0, line2Start, Graphics.FONT_GLANCE, "BTC", Graphics.TEXT_JUSTIFY_LEFT);
 		dc.drawText(dc.getTextWidthInPixels("BTC", Graphics.FONT_GLANCE) + 5, line2Start, Graphics.FONT_GLANCE, "@" + cryptoBackend.getFormattedPriceDateOrTime(), Graphics.TEXT_JUSTIFY_LEFT);
 

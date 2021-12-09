@@ -95,7 +95,10 @@ class BitcoinBackend {
 	
 	function initialize(cryptoVal) {
 		crypto = cryptoVal;
-		price = Stor.getValue(CACHEVALUEKEY);
+		var storedPrice = Stor.getValue(CACHEVALUEKEY);
+		if (storedPrice) {
+			price = storedPrice;
+		}
 //		currency = currencyVal;
 //		backend = backendVal;
 //		apikey = apikeyVal;
