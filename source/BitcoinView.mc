@@ -26,16 +26,23 @@ class BitcoinView extends Ui.View {
 
     // Load your resources here
     function onLayout(dc) {
+    	var priceFont = Graphics.FONT_NUMBER_HOT;
+   		var screenWidth = dc.getWidth();
+    	var hotWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_HOT);
+    	if (hotWidth > screenWidth) {
+    		// Font too hot, fall back to medium
+    		priceFont = Graphics.FONT_NUMBER_MEDIUM;
+    	}
     	bitCoinView = new Ui.Text({
     		:text => cryptoBackend.price,
     		:color => Graphics.COLOR_WHITE,
-    		:font => Graphics.FONT_NUMBER_MEDIUM,
+    		:font => priceFont,
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
     		:locY => WatchUi.LAYOUT_VALIGN_CENTER
     	});
     	
     	fetchingView = new Ui.Text({
-    		:text => "Loading...",
+    		:text => Rez.Strings.loading,
     		:color => Graphics.COLOR_WHITE,
     		:font => Graphics.FONT_LARGE,
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
@@ -43,7 +50,7 @@ class BitcoinView extends Ui.View {
     	});
     	
     	failedView = new Ui.Text({
-    		:text => "Load Fail",
+    		:text => Rez.Strings.loadfail,
     		:color => Graphics.COLOR_WHITE,
     		:font => Graphics.FONT_LARGE,
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,

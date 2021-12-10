@@ -1,5 +1,5 @@
 <strings>
-    <string id="AppName">Bitcoin</string>
+    <string id="AppName" scope="glance">Bitcoin</string>
     <string id="currency">Currency</string>
     <string id="USD">USD</string>
     <string id="EUR">EUR</string>
@@ -24,4 +24,6 @@
     <string id="hr12">12 Hour</string>
     <string id="hr24">24 Hour</string>
     <string id="timeformat">Time Format</string>
+    <string id="loading" scope="glance">Loading...</string>
+    <string id="loadfail">Load Fail</string>
 </strings>

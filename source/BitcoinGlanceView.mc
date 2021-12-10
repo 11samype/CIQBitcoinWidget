@@ -12,12 +12,16 @@ var apiKey;
 var priceCacheValueKey = "price_cache_time";
 
 var cryptoBackend;
+var loadingText;
+var appNameText;
 
 (:glance)
 class BitcoinGlanceView extends Ui.GlanceView {
     function initialize(cryptoBackendVal) {
         GlanceView.initialize();
     	cryptoBackend = cryptoBackendVal;
+    	loadingText = WatchUi.loadResource(Rez.Strings.loading);
+    	appNameText = WatchUi.loadResource(Rez.Strings.AppName);
     }
 
     function onUpdate(dc) {
@@ -27,16 +31,23 @@ class BitcoinGlanceView extends Ui.GlanceView {
 
 		var viewHeight = dc.getHeight();
 		var line1Start = viewHeight / 6;
-		var line2Start = viewHeight / 2;
+		var line2Start = dc.getFontHeight(Graphics.FONT_MEDIUM);
 		
-		var bitcoinPriceFormatted = "Loading...";
+		var bitcoinPriceFormatted = loadingText;
 		if (cryptoBackend.price.length() > 0) {
+			System.println("RECEIVED.");
 			bitcoinPriceFormatted = getSymbol() + cryptoBackend.price;
 		}
-
-		dc.drawText(0, line1Start, Graphics.FONT_TINY, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
-		dc.drawText(0, line2Start, Graphics.FONT_GLANCE, "BTC", Graphics.TEXT_JUSTIFY_LEFT);
-		dc.drawText(dc.getTextWidthInPixels("BTC", Graphics.FONT_GLANCE) + 5, line2Start, Graphics.FONT_GLANCE, "@" + cryptoBackend.getFormattedPriceDateOrTime(), Graphics.TEXT_JUSTIFY_LEFT);
+		
+		if (dc.getHeight() >= (dc.getFontHeight(Graphics.FONT_MEDIUM) + dc.getFontHeight(Graphics.FONT_GLANCE) * 2)) {
+			dc.drawText(0, 0, Graphics.FONT_GLANCE, appNameText.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
+			dc.drawText(0, dc.getFontHeight(Graphics.FONT_GLANCE), Graphics.FONT_LARGE, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
+			dc.drawText(0, dc.getFontHeight(Graphics.FONT_GLANCE) + dc.getFontHeight(Graphics.FONT_MEDIUM), Graphics.FONT_GLANCE, "@" + cryptoBackend.getFormattedPriceDateOrTime(), Graphics.TEXT_JUSTIFY_LEFT);
+		} else {
+			dc.drawText(0, 0, Graphics.FONT_LARGE, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
+			dc.drawText(0, line2Start, Graphics.FONT_GLANCE, "BTC", Graphics.TEXT_JUSTIFY_LEFT);
+			dc.drawText(dc.getTextWidthInPixels("BTC", Graphics.FONT_GLANCE) + 5, line2Start, Graphics.FONT_GLANCE, "@" + cryptoBackend.getFormattedPriceDateOrTime(), Graphics.TEXT_JUSTIFY_LEFT);
+		}
 
     }
     

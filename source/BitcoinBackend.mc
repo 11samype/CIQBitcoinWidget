@@ -232,8 +232,14 @@ class BitcoinBackend {
 			var hour = priceTime.hour % 12;
 			var formattedHour;
 			if (hour < 10) {
+				if (hour == 0) {
+					hour = 12;
+				}
 				formattedHour = hour.format("%1d");
 			} else {
+				if (hour == 0) {
+					hour = 12;
+				}
 				formattedHour = hour.format("%2d");
 			}
 			var amPM;
