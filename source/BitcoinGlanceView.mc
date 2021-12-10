@@ -35,7 +35,6 @@ class BitcoinGlanceView extends Ui.GlanceView {
 		
 		var bitcoinPriceFormatted = loadingText;
 		if (cryptoBackend.price.length() > 0) {
-			System.println("RECEIVED.");
 			bitcoinPriceFormatted = getSymbol() + cryptoBackend.price;
 		}
 		

@@ -26,17 +26,10 @@ class BitcoinView extends Ui.View {
 
     // Load your resources here
     function onLayout(dc) {
-    	var priceFont = Graphics.FONT_NUMBER_HOT;
-   		var screenWidth = dc.getWidth();
-    	var hotWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_HOT);
-    	if (hotWidth > screenWidth) {
-    		// Font too hot, fall back to medium
-    		priceFont = Graphics.FONT_NUMBER_MEDIUM;
-    	}
     	bitCoinView = new Ui.Text({
     		:text => cryptoBackend.price,
     		:color => Graphics.COLOR_WHITE,
-    		:font => priceFont,
+    		:font => getPriceFont(dc),
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
     		:locY => WatchUi.LAYOUT_VALIGN_CENTER
     	});
@@ -114,5 +107,19 @@ class BitcoinView extends Ui.View {
     
     function onReceive() {
     	Ui.requestUpdate();
+    }
+    
+    // Different font sizes work on different sized devices
+    // Check the screen size with different fonts to ensure we have optimal size
+    function getPriceFont(dc) {
+   		var screenWidth = dc.getWidth();
+    	var hotWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_HOT);
+    	var thaiHotWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_THAI_HOT);
+    	if (thaiHotWidth <= screenWidth) {
+    		return Graphics.FONT_NUMBER_THAI_HOT;
+    	} else if (hotWidth <= screenWidth) {
+    		return Graphics.FONT_NUMBER_HOT;
+    	}
+    	return Graphics.FONT_NUMBER_MEDIUM;
     }
 }
