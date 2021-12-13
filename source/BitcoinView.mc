@@ -29,7 +29,7 @@ class BitcoinView extends Ui.View {
     	bitCoinView = new Ui.Text({
     		:text => cryptoBackend.price,
     		:color => Graphics.COLOR_WHITE,
-    		:font => getPriceFont(dc),
+    		:font => Graphics.FONT_NUMBER_MEDIUM,
     		:locX => WatchUi.LAYOUT_HALIGN_CENTER,
     		:locY => WatchUi.LAYOUT_VALIGN_CENTER
     	});
@@ -90,6 +90,7 @@ class BitcoinView extends Ui.View {
         } else {
         	System.println("Price: " + cryptoBackend.price);
         	bitCoinView.setText(cryptoBackend.price);
+        	bitCoinView.setFont(getPriceFont(dc));
         	bitCoinView.draw(dc);
         }
     }
