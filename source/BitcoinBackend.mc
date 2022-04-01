@@ -25,7 +25,8 @@ class BitcoinBackend {
 		CAD,
 		ZAR,
 		PLN,
-		AUD
+		AUD,
+		HKD
 	}
 	
 	enum {
@@ -54,7 +55,8 @@ class BitcoinBackend {
 		"CAD",
 		"ZAR",
 		"PLN",
-		"AUD"
+		"AUD",
+		"HKD"
 	];
 	
 	const DATEFORMATS = [
@@ -75,7 +77,8 @@ class BitcoinBackend {
 		"CAD" => "$",
 		"ZAR" => "R",
 		"PLN" => "zł",
-		"AUD" => "$"
+		"AUD" => "$",
+		"HKD" => "$"
 	};
 	
 	hidden var crypto;

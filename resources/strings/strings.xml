@@ -9,6 +9,7 @@
     <string id="ZAR">ZAR</string>
     <string id="PLN">PLN</string>
     <string id="AUD">AUD</string>
+    <string id="HKD">HKD</string>
     <string id="backend">Data Source</string>
     <string id="BitcoinAverage">BitcoinAverage</string>
     <string id="CoinMarketCap">CoinMarketCap</string>
