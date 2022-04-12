@@ -108,6 +108,9 @@ class BitcoinBackend {
 	}
 	
 	function makeRequest(onReceive) {
+		if (!System.getDeviceSettings().phoneConnected) {
+			return;
+		}
 		if (apiKeyNeeded()) {
 	    	return;
 	    }
