@@ -161,7 +161,7 @@ class BitcoinBackend {
     }
     
     function getBackendURL() {
-    	var url = "https://btc-beckend.azurewebsites.net/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
+    	var url = "https://www.petersamyn.com/btc-backend/price?source=" + backend.toLower() + "&currency=" + currency.toLower();
     	if (backend.equals(BACKENDS[CoinMarketCap])) {
     		url = url + "&apikey=" + apikey;
     	}
