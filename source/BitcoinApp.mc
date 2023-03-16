@@ -51,34 +51,34 @@ class BitcoinApp extends App.AppBase {
     }
     
     function getCurrencyProperty() {
-    	var currencyNum = AppBase.getProperty("currency");
+		var currencyNum = Properties.getValue("currency");
     	currency = cryptoBackend.CURRENCIES[currencyNum];
     	cryptoBackend.setCurrency(currency);
     	System.println(cryptoBackend.getCurrency());
     }
     
     function getBackendProperty() {
-    	var backendNum = AppBase.getProperty("backend");
+    	var backendNum = Properties.getValue("backend");
     	backend = cryptoBackend.BACKENDS[backendNum];
     	cryptoBackend.setBackend(backend);
     	System.println(cryptoBackend.getBackend());
     }
     
     function getAPIKeyProperty() {
-    	apikey = AppBase.getProperty("apikey");
+    	apikey = Properties.getValue("apikey");
     	cryptoBackend.apikey = apikey;
     	System.println(cryptoBackend.apikey);
     }
     
     function getDateFormatProperty() {
-    	var dateformatNum = AppBase.getProperty("dateformat");
+    	var dateformatNum = Properties.getValue("dateformat");
     	dateformat = cryptoBackend.DATEFORMATS[dateformatNum];
     	cryptoBackend.setDateformat(dateformat);
     	System.println(cryptoBackend.getDateformat());
     }
     
     function getTimeFormatProperty() {
-    	var timeformatNum = AppBase.getProperty("timeformat");
+    	var timeformatNum = Properties.getValue("timeformat");
     	timeformat = cryptoBackend.TIMEFORMATS[timeformatNum];
     	cryptoBackend.setTimeformat(timeformat);
     	System.println(cryptoBackend.getTimeformat());

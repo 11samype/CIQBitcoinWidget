@@ -1,6 +1,7 @@
 using Toybox.Communications as Comm;
 using Toybox.Application.Storage as Stor;
 using Toybox.Time;
+using Toybox.Lang;
 
 (:background)
 class BitcoinBackend {
@@ -107,32 +108,35 @@ class BitcoinBackend {
 //		apikey = apikeyVal;
 	}
 	
-	function makeRequest(onReceive) {
+	function makeRequest(onReceiveCallback) {
 		if (!System.getDeviceSettings().phoneConnected) {
+			System.println("No Connection");
 			return;
 		}
 		if (apiKeyNeeded()) {
+			System.println("API Key Required");
 	    	return;
 	    }
     	var url = getBackendURL();
     	System.println(url);
     	var params = {};
     	var options = {
-    		:method => Comm.REQUEST_CONTENT_TYPE_JSON,
+			:method => Comm.HTTP_REQUEST_METHOD_GET,
+    		:headers => {"Content-Type" => Comm.REQUEST_CONTENT_TYPE_JSON},
     		:responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
     	};
     	
     	Comm.makeWebRequest(url, params, options, method(:onReceive));
     	fetching = true;
     	fetchFailed = false;
-    	myOnReceive = onReceive;
+    	myOnReceive = onReceiveCallback;
     }
     
-    function onReceive(responseCode, data) {
+    function onReceive(responseCode as Lang.Number, data as Null or Lang.Dictionary or Lang.String) as Void {
     	fetching = false;
     	System.println(data);
     	if (responseCode == 200) {
-    		System.println("Request Successful");
+    		System.println("Request Successful: " + data);
     		price = getPrice(data);
     		price = formatPrice(price);
     		
