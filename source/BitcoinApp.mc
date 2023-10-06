@@ -1,4 +1,5 @@
 using Toybox.Application as App;
+using Toybox.Lang;
 
 class BitcoinApp extends App.AppBase {
 
@@ -50,6 +51,7 @@ class BitcoinApp extends App.AppBase {
 		
     }
     
+	(:typecheck(false))
     function getCurrencyProperty() {
 		var currencyNum = Properties.getValue("currency");
     	currency = cryptoBackend.CURRENCIES[currencyNum];
@@ -57,6 +59,7 @@ class BitcoinApp extends App.AppBase {
     	System.println(cryptoBackend.getCurrency());
     }
     
+	(:typecheck(false))
     function getBackendProperty() {
     	var backendNum = Properties.getValue("backend");
     	backend = cryptoBackend.BACKENDS[backendNum];
@@ -70,6 +73,7 @@ class BitcoinApp extends App.AppBase {
     	System.println(cryptoBackend.apikey);
     }
     
+	(:typecheck(false))
     function getDateFormatProperty() {
     	var dateformatNum = Properties.getValue("dateformat");
     	dateformat = cryptoBackend.DATEFORMATS[dateformatNum];
@@ -77,6 +81,7 @@ class BitcoinApp extends App.AppBase {
     	System.println(cryptoBackend.getDateformat());
     }
     
+	(:typecheck(false))
     function getTimeFormatProperty() {
     	var timeformatNum = Properties.getValue("timeformat");
     	timeformat = cryptoBackend.TIMEFORMATS[timeformatNum];
@@ -106,7 +111,7 @@ class BitcoinApp extends App.AppBase {
         
     }
 	
-(:glance)
+	(:glance)
 	function getGlanceView() {
 		isGlance = true;
 		glanceView = new BitcoinGlanceView(cryptoBackend);

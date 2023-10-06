@@ -10,6 +10,7 @@
 			<listEntry value="6">@Strings.PLN</listEntry>
 			<listEntry value="7">@Strings.AUD</listEntry>
 			<listEntry value="8">@Strings.HKD</listEntry>
+			<listEntry value="9">@Strings.NOK</listEntry>
 		</settingConfig>
 	</setting>
 	

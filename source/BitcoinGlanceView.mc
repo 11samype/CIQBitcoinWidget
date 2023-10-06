@@ -29,8 +29,8 @@ class BitcoinGlanceView extends Ui.GlanceView {
         dc.clear();
 		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
-		var viewHeight = dc.getHeight();
-		var line1Start = viewHeight / 6;
+		// var viewHeight = dc.getHeight();
+		// var line1Start = viewHeight / 6;
 		var line2Start = dc.getFontHeight(Graphics.FONT_MEDIUM);
 		
 		var bitcoinPriceFormatted = loadingText;
