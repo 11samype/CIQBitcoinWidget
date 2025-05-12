@@ -114,13 +114,16 @@ class BitcoinView extends Ui.View {
     // Check the screen size with different fonts to ensure we have optimal size
     function getPriceFont(dc) {
    		var screenWidth = dc.getWidth();
+		var mediumWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_MEDIUM);
     	var hotWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_HOT);
     	var thaiHotWidth = dc.getTextWidthInPixels(cryptoBackend.price, Graphics.FONT_NUMBER_THAI_HOT);
     	if (thaiHotWidth <= screenWidth) {
     		return Graphics.FONT_NUMBER_THAI_HOT;
     	} else if (hotWidth <= screenWidth) {
     		return Graphics.FONT_NUMBER_HOT;
-    	}
-    	return Graphics.FONT_NUMBER_MEDIUM;
+    	} else if (mediumWidth <= screenWidth) {
+			return Graphics.FONT_NUMBER_MEDIUM;
+		}
+    	return Graphics.FONT_NUMBER_MILD;
     }
 }

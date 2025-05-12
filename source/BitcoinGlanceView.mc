@@ -34,16 +34,30 @@ class BitcoinGlanceView extends Ui.GlanceView {
 		var line2Start = dc.getFontHeight(Graphics.FONT_MEDIUM);
 		
 		var bitcoinPriceFormatted = loadingText;
+		var priceFont = Graphics.FONT_LARGE;
 		if (cryptoBackend.price.length() > 0) {
 			bitcoinPriceFormatted = getSymbol() + cryptoBackend.price;
+			var screenWidth = dc.getWidth();
+			var largeWidth = dc.getTextWidthInPixels(bitcoinPriceFormatted, Graphics.FONT_LARGE);
+			var mediumWidth = dc.getTextWidthInPixels(bitcoinPriceFormatted, Graphics.FONT_MEDIUM);
+			var smallWidth = dc.getTextWidthInPixels(bitcoinPriceFormatted, Graphics.FONT_SMALL);
+			if (largeWidth <= screenWidth) {
+				priceFont = Graphics.FONT_LARGE;
+			} else if (mediumWidth <= screenWidth) {
+				priceFont = Graphics.FONT_MEDIUM;
+			} else if (smallWidth <= screenWidth) {
+				priceFont = Graphics.FONT_SMALL;
+			} else {
+				priceFont = Graphics.FONT_XTINY;
+			}
 		}
 		
 		if (dc.getHeight() >= (dc.getFontHeight(Graphics.FONT_MEDIUM) + dc.getFontHeight(Graphics.FONT_GLANCE) + dc.getFontHeight(Graphics.FONT_SYSTEM_XTINY))) {
 			dc.drawText(0, 0, Graphics.FONT_GLANCE, appNameText.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
-			dc.drawText(0, dc.getFontHeight(Graphics.FONT_GLANCE), Graphics.FONT_LARGE, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
+			dc.drawText(0, dc.getFontHeight(Graphics.FONT_GLANCE), priceFont, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
 			dc.drawText(0, dc.getFontHeight(Graphics.FONT_GLANCE) + dc.getFontHeight(Graphics.FONT_MEDIUM), Graphics.FONT_SYSTEM_XTINY, "@" + cryptoBackend.getFormattedPriceDateOrTime(), Graphics.TEXT_JUSTIFY_LEFT);
 		} else {
-			dc.drawText(0, 0, Graphics.FONT_LARGE, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
+			dc.drawText(0, 0, priceFont, bitcoinPriceFormatted, Graphics.TEXT_JUSTIFY_LEFT);
 			dc.drawText(0, line2Start, Graphics.FONT_GLANCE, "BTC", Graphics.TEXT_JUSTIFY_LEFT);
 			dc.drawText(dc.getTextWidthInPixels("BTC", Graphics.FONT_GLANCE) + 5, line2Start, Graphics.FONT_GLANCE, "@" + cryptoBackend.getFormattedPriceDateOrTime(), Graphics.TEXT_JUSTIFY_LEFT);
 		}
