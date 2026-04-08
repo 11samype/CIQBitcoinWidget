@@ -11,6 +11,7 @@
 			<listEntry value="7">@Strings.AUD</listEntry>
 			<listEntry value="8">@Strings.HKD</listEntry>
 			<listEntry value="9">@Strings.NOK</listEntry>
+			<listEntry value="10">@Strings.JOD</listEntry>
 		</settingConfig>
 	</setting>
 	
