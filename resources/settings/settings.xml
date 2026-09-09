@@ -12,6 +12,7 @@
 			<listEntry value="8">@Strings.HKD</listEntry>
 			<listEntry value="9">@Strings.NOK</listEntry>
 			<listEntry value="10">@Strings.JOD</listEntry>
+			<listEntry value="11">@Strings.CHF</listEntry>
 		</settingConfig>
 	</setting>
 	
